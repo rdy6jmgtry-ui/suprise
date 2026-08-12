@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="A little surprise, made with love.">
+  <title>A Small Surprise</title>
+  <style>
+    :root{--ink:#23372e;--paper:#f8f3e8;--blush:#d89082;--wine:#6f2234;--gold:#c6a15b}*{box-sizing:border-box}html,body{min-height:100%}body{margin:0;color:var(--ink);font-family:Arial,sans-serif}.page{position:relative;min-height:100svh;overflow:hidden;display:grid;place-items:center;padding:24px;background:linear-gradient(135deg,#f4ecdf 0%,#f9f6ee 48%,#e9eee7 100%)}
+    .noise{position:fixed;inset:0;opacity:.045;pointer-events:none;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.7'/%3E%3C/svg%3E")}.ambient{position:fixed;border-radius:999px;opacity:.55}.one{width:420px;height:420px;top:-210px;right:-120px;background:radial-gradient(circle,#e1a49a 0%,transparent 67%)}.two{width:520px;height:520px;bottom:-290px;left:-180px;background:radial-gradient(circle,#a4b8a5 0%,transparent 68%)}
+    .polar{position:fixed;z-index:0;font-size:clamp(4rem,8vw,7rem);opacity:.11;user-select:none;pointer-events:none;animation:bear 6s ease-in-out infinite}.bear-left{left:2vw;bottom:3%;transform:rotate(8deg)}.bear-right{right:2vw;top:6%;transform:rotate(-10deg);animation-delay:-3s}
+    .card{position:relative;width:min(100%,720px);min-height:min(760px,calc(100svh - 48px));display:flex;flex-direction:column;padding:28px 42px 42px;overflow:hidden;border:1px solid rgba(35,55,46,.12);border-radius:32px;background:rgba(255,253,247,.76);box-shadow:0 35px 90px rgba(42,57,48,.14),inset 0 1px 0 rgba(255,255,255,.8);backdrop-filter:blur(18px);transition:background .6s,color .6s}.topbar{display:flex;align-items:center;justify-content:space-between;position:relative;z-index:2;color:#65746c}.monogram{display:grid;place-items:center;width:45px;height:45px;border:1px solid rgba(35,55,46,.2);border-radius:50%;font:italic .88rem Georgia,serif}.top-note{font-size:.69rem;text-transform:uppercase;letter-spacing:.19em}.progress{height:2px;margin:24px 0 0;background:rgba(35,55,46,.1)}.progress span{display:block;height:100%;width:0;background:var(--blush);transition:width .65s cubic-bezier(.2,.8,.2,1)}
+    .screen{display:none;flex:1;flex-direction:column;justify-content:center;position:relative}.screen.active{display:flex;animation:enter .65s cubic-bezier(.2,.8,.2,1) both}.eyebrow{margin:0 0 20px;color:var(--wine);font-size:.7rem;font-weight:700;text-transform:uppercase;letter-spacing:.22em}.intro{align-items:center;text-align:center;padding:56px 0 20px}.seal{position:absolute;top:24px;right:10px;width:77px;height:77px;display:flex;flex-direction:column;align-items:center;justify-content:center;transform:rotate(7deg);border:1px solid rgba(111,34,52,.28);border-radius:50%;color:var(--wine);font-family:Georgia,serif}.seal:before{content:"";position:absolute;inset:5px;border:1px dashed rgba(111,34,52,.22);border-radius:50%}.seal span{font-size:.65rem;font-style:italic}.seal strong{font-size:1.05rem;font-weight:400}.intro h1,.question h1,.reveal h1{font-family:Georgia,serif;font-weight:400;letter-spacing:-.045em}.intro h1{margin:0;font-size:clamp(3rem,8vw,5rem);line-height:.96}.intro h1 em{color:var(--wine);font-weight:400}.lead{max-width:450px;margin:28px auto 0;color:#66736c;font:1.12rem/1.65 Georgia,serif}.lead.failed{color:var(--wine)}
+    .start{margin-top:34px;min-width:210px;padding:17px 28px;border:0;border-radius:999px;background:var(--ink);color:#fff;cursor:pointer;font-size:.78rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;box-shadow:0 12px 24px rgba(35,55,46,.18);transition:.2s}.start:hover{transform:translateY(-2px);box-shadow:0 16px 30px rgba(35,55,46,.22)}.start span{margin-left:12px}.fine{margin:20px 0 0;color:#929b95;font-size:.7rem;letter-spacing:.08em}.approved{margin:12px 0 0;color:#a0a8a3;font:italic .7rem Georgia,serif}
+    .question{padding:60px 28px 28px}.meta{display:flex;justify-content:space-between;color:var(--wine);font-size:.69rem;font-weight:700;text-transform:uppercase;letter-spacing:.18em}.question h1{max-width:590px;margin:24px 0 38px;font-size:clamp(2.6rem,7vw,4.5rem);line-height:1.03}.answers{display:grid;gap:12px}.answers button{display:grid;grid-template-columns:38px 1fr 24px;align-items:center;gap:15px;width:100%;min-height:66px;padding:12px 18px;text-align:left;color:var(--ink);border:1px solid rgba(35,55,46,.15);border-radius:16px;background:rgba(255,255,255,.48);cursor:pointer;transition:.22s}.answers button:hover,.answers button:focus{outline:none;transform:translateX(5px);background:#fff;border-color:rgba(111,34,52,.34);box-shadow:0 12px 28px rgba(35,55,46,.07)}.letter{display:grid;place-items:center;width:34px;height:34px;border:1px solid rgba(35,55,46,.16);border-radius:50%;color:var(--wine);font-family:Georgia,serif}.arrow{color:var(--blush);opacity:.65}.count{margin:24px 0 0;color:#98a099;font-size:.7rem;letter-spacing:.09em;text-transform:uppercase}
+    .card.revealed{color:#fff;background:linear-gradient(150deg,#183b31 0%,#244e40 55%,#183329 100%);border-color:rgba(255,255,255,.12)}.revealed .topbar{color:rgba(255,255,255,.62)}.revealed .monogram{border-color:rgba(255,255,255,.25)}.revealed .progress{background:rgba(255,255,255,.1)}.revealed .progress span{background:var(--gold)}.reveal{align-items:center;justify-content:flex-start;padding:38px 0 4px;text-align:center}.reveal .eyebrow{margin-bottom:12px;color:#dcc58f}.reveal h1{margin:0;font-size:clamp(3.3rem,9vw,5.5rem);line-height:1}.reveal-intro{margin:13px 0 25px;color:rgba(255,255,255,.72);font:italic 1rem/1.55 Georgia,serif}.ticket{width:min(100%,475px);color:var(--ink);border-radius:18px;overflow:hidden;background:#fbf5e8;box-shadow:0 24px 55px rgba(0,0,0,.25);transform:rotate(-.6deg)}.ticket-top{display:flex;justify-content:space-between;padding:12px 18px;color:#eee0c3;background:var(--wine);font-size:.62rem;font-weight:700;text-transform:uppercase;letter-spacing:.16em}.ticket-main{padding:24px 24px 20px;border-bottom:1px dashed rgba(35,55,46,.25)}.surprise{margin:0 0 7px;color:var(--wine);font-size:.64rem;font-weight:700;letter-spacing:.2em;text-transform:uppercase}.ticket h2{margin:0;color:var(--wine);font:400 clamp(2.1rem,7vw,3.2rem)/.98 Georgia,serif;letter-spacing:-.04em}.rule{display:flex;align-items:center;gap:10px;margin:13px 0 9px;color:var(--gold)}.rule:before,.rule:after{content:"";flex:1;height:1px;background:rgba(198,161,91,.45)}.ticket h3{margin:0;font:italic 400 1.05rem Georgia,serif}.venue{margin:4px 0 0;font-size:.72rem;font-weight:700;text-transform:uppercase;letter-spacing:.12em}.ticket-bottom{display:grid;grid-template-columns:1fr 1fr;padding:15px 18px 17px;text-align:left}.ticket-bottom>div+div{padding-left:18px;border-left:1px solid rgba(35,55,46,.16)}.ticket-bottom small{display:block;margin-bottom:3px;color:#8b918b;font-size:.56rem;text-transform:uppercase;letter-spacing:.13em}.ticket-bottom strong{font:400 .82rem Georgia,serif}.love{margin:20px 0 0;color:#d8e4dc;font:italic .92rem Georgia,serif}.couple{display:flex;align-items:center;gap:7px;margin-top:8px;font-size:1.55rem}.couple b{color:#e6bfbb;font:400 1rem Georgia,serif;animation:heart 1.6s ease-in-out infinite}.sparkles i{position:absolute;color:#d8bc7b;font-style:normal;animation:float 3s ease-in-out infinite}.sparkles i:nth-child(1){left:8%;top:15%}.sparkles i:nth-child(2){right:10%;top:7%;font-size:2rem}.sparkles i:nth-child(3){right:2%;top:35%}.sparkles i:nth-child(4){left:1%;top:45%}.sparkles i:nth-child(5){left:15%;top:2%;font-size:1.5rem}
+    @keyframes enter{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:none}}@keyframes bear{50%{margin-top:-12px}}@keyframes float{50%{transform:translateY(-8px) rotate(12deg)}}@keyframes heart{50%{transform:scale(1.25)}}
+    @media(max-width:620px){.page{padding:0}.card{min-height:100svh;border-radius:0;padding:22px 20px 26px}.top-note{font-size:.58rem}.intro{padding-top:72px}.seal{top:18px;right:0;width:67px;height:67px}.question{padding:50px 0 10px}.question h1{margin-bottom:30px}.answers button{grid-template-columns:34px 1fr 18px;padding:11px 13px}.reveal{padding-top:28px}.ticket-main{padding:21px 18px 17px}.ticket-bottom{padding:13px 14px}.love{margin-top:12px}.polar{display:none}}@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+  </style>
+</head>
+<body>
+  <main class="page">
+    <div class="ambient one"></div><div class="ambient two"></div><div class="noise"></div>
+    <div class="polar bear-left" aria-hidden="true">🐻‍❄️</div><div class="polar bear-right" aria-hidden="true">🐻‍❄️</div>
+    <section class="card" id="card" aria-live="polite">
+      <header class="topbar"><span class="monogram">A + ?</span><span class="top-note">A little something for you</span></header>
+      <div class="progress"><span id="bar"></span></div>
+      <section class="screen intro active" id="home">
+        <div class="seal"><span>for</span><strong>you</strong></div>
+        <p class="eyebrow">For the intended recipient only</p>
+        <h1>Before I tell you<br><em>something special…</em></h1>
+        <p class="lead" id="intro-copy">First, I need to make sure this reached my favorite person.</p>
+        <button class="start" id="start" type="button">Verify it’s me <span>→</span></button>
+        <p class="fine">All three answers must be correct</p><p class="approved">🐻‍❄️ Polar bear approved</p>
+      </section>
+      <section class="screen question" id="question">
+        <div class="meta"><span id="kicker"></span><span id="number"></span></div>
+        <h1 id="question-title"></h1><div class="answers" id="answers"></div><p class="count" id="count"></p>
+      </section>
+      <section class="screen reveal" id="reveal">
+        <div class="sparkles" aria-hidden="true"><i>✦</i><i>·</i><i>✧</i><i>✦</i><i>·</i></div>
+        <p class="eyebrow">Your official result</p><h1>We have plans.</h1>
+        <p class="reveal-intro">Opening night. Under the lights.<br>Just you and me.</p>
+        <div class="ticket"><div class="ticket-top"><span>New York City</span><span>Admit Two</span></div>
+          <div class="ticket-main"><p class="surprise">Surprise!</p><h2>We’re going to<br>the US Open</h2><div class="rule"><span>✦</span></div><h3>Opening Night</h3><p class="venue">Louis Armstrong Stadium</p></div>
+          <div class="ticket-bottom"><div><small>Date</small><strong>August 30, 2026</strong></div><div><small>Dress code</small><strong>Date-night ready</strong></div></div>
+        </div>
+        <p class="love">I can’t wait to experience it with you. ♡</p><div class="couple" aria-label="Two polar bears celebrating together"><span>🐻‍❄️</span><b>♡</b><span>🐻‍❄️</span></div>
+      </section>
+    </section>
+  </main>
+  <script>
+    const questions=[
+      {kicker:'Identity check',title:'What is your favorite color?',answers:['Sage green','Purple','Baby blue'],correct:'Purple'},
+      {kicker:'Looking like you so far',title:'What is your favorite animal?',answers:['Red panda','Penguin','Polar bear'],correct:'Polar bear'},
+      {kicker:'Final verification',title:'What is your favorite vegetable?',answers:['Broccoli','Carrots','Asparagus'],correct:'Broccoli'}
+    ];
+    let step=0,correctCount=0;
+    const $=id=>document.getElementById(id);
+    function show(id){document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));$(id).classList.add('active')}
+    function home(failed=false){step=0;correctCount=0;$('card').classList.remove('revealed');$('bar').style.width='0%';$('intro-copy').textContent=failed?'Hmm… that didn’t sound like you. Let’s try that again.':'First, I need to make sure this reached my favorite person.';$('intro-copy').classList.toggle('failed',failed);$('start').innerHTML=(failed?'Try again':'Verify it’s me')+' <span>→</span>';show('home')}
+    function render(){const q=questions[step];$('kicker').textContent=q.kicker;$('number').textContent=String(step+1).padStart(2,'0')+' / 03';$('question-title').textContent=q.title;$('count').textContent=correctCount+' answer'+(correctCount===1?'':'s')+' locked in';$('answers').innerHTML='';q.answers.forEach((choice,i)=>{const b=document.createElement('button');b.type='button';b.innerHTML='<span class="letter">'+String.fromCharCode(65+i)+'</span><span>'+choice+'</span><span class="arrow">↗</span>';b.onclick=()=>answer(choice);$('answers').appendChild(b)});$('bar').style.width=((step+1)/4*100)+'%';show('question')}
+    function answer(choice){const q=questions[step];if(choice!==q.correct){home(true);return}correctCount++;step++;if(step<questions.length){setTimeout(render,180)}else{setTimeout(()=>{$('bar').style.width='100%';$('card').classList.add('revealed');show('reveal')},180)}}
+    $('start').addEventListener('click',()=>{step=0;render()});
+  </script>
+</body>
+</html>
